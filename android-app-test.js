@@ -23,12 +23,13 @@ const desiredCaps = {
   deviceName:         `${configs.DEVICE_NAME}`,
   platformName:       `${configs.PLATFORM_NAME}`,
   // deviceGroup:        'ORGANIZATION',
-  platformVersion:    '7.0',
-  app:                'https://github.com/lilyhdo/pipeline-test/raw/master/F8_5.0.0.apk',
+  platformVersion:    '5.0.1',
+  app:                `${configs.APP}`,
   appPackage:         'com.facebook.f8',
   appActivity:        'com.facebook.f8.MainActivity',
   waitAppPackage:     'com.facebook.f8',
-  udid:               'ce0716079da3062c05' 
+  udid:               'FA45WSF02427' 
+
 }
 
 let driver
@@ -61,6 +62,8 @@ describe('Android App sample', () => {
         console.log("MORE INFO")
         console.log("If the error was that 'the environment you requested was unavailable' make sure all current sessions on Kobiton are completed, wait a few moments for the device to become available, or try running the test on a different device.")
         console.log("Else, contact Kobiton support for more help with troubleshooting.")
+        console.log(" ")
+        console.log(" ")
       }
       throw err
     }
@@ -68,56 +71,55 @@ describe('Android App sample', () => {
 
   it('should do things in the app', async () => {
     await driver
-      // .elementByXPath("//android.widget.TextView[@text='SKIP FOR NOW']")
-      // .click()
-    // .sleep(1000)
+      .elementByXPath("//android.widget.TextView[@text='SKIP FOR NOW']")
+      .click()
+    .sleep(1000)
     .elementByXPath("//android.widget.TextView[@text='DAY 2']")
     .click()
-    // .sleep(2000)
-    // .elementByXPath("//android.widget.TextView[@text='REGISTRATION - 2 HOURS']")
-    // .click()
-    // .sleep(3000)
-    // .back()
-    // .sleep(1000)
-    // .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[4]/android.widget.ImageView")
-    // .click()
-    // .sleep(2000)
-    // .scroll(["/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.support.v4.view.ViewPager/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.widget.TextView"][10])
-    // }
+    .sleep(2000)
+    .elementByXPath("//android.widget.TextView[@text='REGISTRATION - 2 HOURS']")
+    .click()
+    .sleep(3000)
+    .back()
+    .sleep(1000)
+    .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[4]/android.widget.ImageView")
+    .click()
+    .sleep(2000)
+    .scroll(["/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.support.v4.view.ViewPager/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.widget.TextView"][10])
   })
 
   after(async () => {
     if (driver != null) {
       try {
         const sessionCapabilities = await driver.sessionCapabilities()
-
+        var sessionId = sessionCapabilities.kobitonSessionId
         console.log(" ")
         console.log(" ")
         console.log("SESSION INFORMATION")
-        console.log(sessionCapabilities)
-        // console.log("sessionName: " + sessionCapabilities.sessionName)
-        // console.log("sessionDescription: " + sessionCapabilities.sessionDescription)
-        // console.log("deviceOrientation: " + sessionCapabilities.deviceOrientation)
-        // console.log("deviceName: " + sessionCapabilities.deviceName)
-        // console.log("platformName: " + sessionCapabilities.platformName)
-        // console.log("app: " + sessionCapabilities.app)
-        // console.log("kobitonSessionId: " + sessionId)
+        // console.log(sessionCapabilities)
+        console.log("sessionName: " + sessionCapabilities.sessionName)
+        console.log("sessionDescription: " + sessionCapabilities.sessionDescription)
+        console.log("deviceOrientation: " + sessionCapabilities.deviceOrientation)
+        console.log("deviceName: " + sessionCapabilities.desired.deviceName)
+        console.log("platformName: " + sessionCapabilities.platformName)
+        console.log("app: " + sessionCapabilities.app)
+        console.log("kobitonSessionId: " + sessionId)
         console.log(" ")
 
         console.log("TEST OUTPUT")
-        var sessionId = sessionCapabilities.kobitonSessionId
         var basicAuth = "Basic " + new Buffer(username + ":" + apiKey).toString("base64");
         var response = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}`, {
           headers: { 'Authorization': basicAuth }
         })
         const body = await response.json()
 
-        console.log('body: ', body)
-        console.log(" ")
+        // console.log('body: ', body)
+        // console.log(" ")
         console.log(" ")
 
         console.log("App Version:")
         var appVersionId = body.executionData.desired.appVersionId
+        console.log(appVersionId)
         var appVersionResponse = await fetch(`https://api-test.kobiton.com/v1/app/versions/${appVersionId}`, {
           headers: { 'Authorization': basicAuth }
         })
@@ -125,7 +127,7 @@ describe('Android App sample', () => {
         console.log(appVersionBody)
 
         console.log(" ")
-        console.log("Commands")
+        console.log("Commands:")
         var commandsResponse = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}/commands`, {
           headers: { 'Authorization': basicAuth }
         })
