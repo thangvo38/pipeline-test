@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Javascript</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#appFile').change(function() {
+          $.ajax({
+            type: 'PUT',
+            url: "presignedUrl",
+            contentType: 'application/octet-stream',
+            processData: false,
+            headers: {
+              'x-amz-tagging': 'unsaved=true'
+            },
+            data: $('#appFile').get()[0].files[0]
+          })
+          .success(function() {
+            alert('File uploaded');
+          })
+          .error(function() {
+            alert('File NOT uploaded');
+            console.log( arguments);
+          });
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <input id="appFile" type="file">
+  </body>
+</html>
