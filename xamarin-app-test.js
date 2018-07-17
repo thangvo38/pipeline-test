@@ -2,6 +2,7 @@ import 'babel-polyfill'
 import 'colors'
 import wd from 'wd'
 import fetch from 'node-fetch'
+import * as configs from './config'
 
 const username = configs.USERNAME
 const apiKey = configs.API_KEY
