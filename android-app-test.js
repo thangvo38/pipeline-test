@@ -1,35 +1,31 @@
 import 'babel-polyfill'
 import 'colors'
 import wd from 'wd'
-import { assert } from 'chai'
 import * as configs from './config'
-import BPromise from 'bluebird'
-import fetch from 'node-fetch'
 
 const username = configs.USERNAME
 const apiKey = configs.API_KEY
 
 const kobitonServerConfig = {
   protocol: 'https',
-  host: 'api-test.kobiton.com',
+  host: 'api.kobiton.com',
   auth: `${username}:${apiKey}`
 }
 
-const desiredCaps = {
+var desiredCaps = {
   sessionName:        'Automation test session',
-  sessionDescription: 'This is an example for Android app',
-  deviceOrientation:  'portrait',
-  captureScreenshots: true,
+  sessionDescription: '', 
+  deviceOrientation:  'portrait',  
+  captureScreenshots: true,  
+  browserName:        'chrome', 
+  deviceGroup:        'KOBITON', 
   deviceName:         `${configs.DEVICE_NAME}`,
+  platformVersion:    '5.0.2',
   platformName:       `${configs.PLATFORM_NAME}`,
-  // deviceGroup:        'ORGANIZATION',
-  platformVersion:    '5.0.1',
-  app:                `${configs.APP}`,
+  app:                'kobiton-store:9701', 
   appPackage:         'com.facebook.f8',
   appActivity:        'com.facebook.f8.MainActivity',
-  waitAppPackage:     'com.facebook.f8',
-  udid:               'FA45WSF02427' 
-
+  waitAppPackage:     'com.facebook.f8'
 }
 
 let driver
@@ -73,19 +69,19 @@ describe('Android App sample', () => {
     await driver
       .elementByXPath("//android.widget.TextView[@text='SKIP FOR NOW']")
       .click()
-    .sleep(1000)
-    .elementByXPath("//android.widget.TextView[@text='DAY 2']")
-    .click()
-    .sleep(2000)
-    .elementByXPath("//android.widget.TextView[@text='REGISTRATION - 2 HOURS']")
-    .click()
-    .sleep(3000)
-    .back()
-    .sleep(1000)
-    .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[4]/android.widget.ImageView")
-    .click()
-    .sleep(2000)
-    .scroll(["/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.support.v4.view.ViewPager/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.widget.TextView"][10])
+      .sleep(1000)
+      .elementByXPath("//android.widget.TextView[@text='DAY 2']")
+      .click()
+      .sleep(1000)
+      .elementByXPath("//android.widget.TextView[@text='REGISTRATION - 2 HOURS']")
+      .click()
+      // .sleep(3000)
+      // .back()
+      // .sleep(1000)
+    // .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[4]/android.widget.ImageView")
+    // .click()
+    // .sleep(2000)
+    // .scroll(["/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.support.v4.view.ViewPager/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.widget.TextView"][10])
   })
 
   after(async () => {
@@ -103,40 +99,39 @@ describe('Android App sample', () => {
         console.log("deviceName: " + sessionCapabilities.desired.deviceName)
         console.log("platformName: " + sessionCapabilities.platformName)
         console.log("app: " + sessionCapabilities.app)
-        console.log("kobitonSessionId: " + sessionId)
+        // console.log("kobitonSessionId: " + sessionId)
         console.log(" ")
 
-        console.log("TEST OUTPUT")
-        var basicAuth = "Basic " + new Buffer(username + ":" + apiKey).toString("base64");
-        var response = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}`, {
-          headers: { 'Authorization': basicAuth }
-        })
-        const body = await response.json()
+        // console.log("TEST OUTPUT")
+        // var basicAuth = "Basic " + new Buffer(username + ":" + apiKey).toString("base64");
+        // var response = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}`, {
+        //   headers: { 'Authorization': basicAuth }
+        // })
+        // const body = await response.json()
 
-        // console.log('body: ', body)
+        // // console.log('body: ', body)
+        // // console.log(" ")
         // console.log(" ")
-        console.log(" ")
 
-        console.log("App Version:")
-        var appVersionId = body.executionData.desired.appVersionId
-        console.log(appVersionId)
-        var appVersionResponse = await fetch(`https://api-test.kobiton.com/v1/app/versions/${appVersionId}`, {
-          headers: { 'Authorization': basicAuth }
-        })
-        var appVersionBody = await appVersionResponse.json()
-        console.log(appVersionBody)
+        // console.log("App Version:")
+        // var appVersionId = body.executionData.desired.appVersionId
+        // var appVersionResponse = await fetch(`https://api-test.kobiton.com/v1/app/versions/${appVersionId}`, {
+        //   headers: { 'Authorization': basicAuth }
+        // })
+        // var appVersionBody = await appVersionResponse.json()
+        // console.log(appVersionBody)
 
-        console.log(" ")
-        console.log("Commands:")
-        var commandsResponse = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}/commands`, {
-          headers: { 'Authorization': basicAuth }
-        })
-        console.log(commandsResponse)
-        const commandsBody = await commandsResponse.json()
-        console.log(commandsBody)
+        // console.log(" ")
+        // console.log("Commands:")
+        // var commandsResponse = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}/commands?page=2`, {
+        //   headers: { 'Authorization': basicAuth }
+        // })
+        // console.log(commandsResponse)
+        // const commandsBody = await commandsResponse.json()
+        // console.log(commandsBody)
 
-        console.log(" ")
-        console.log("RESULT: Succeed")
+        // console.log(" ")
+        // console.log("RESULT: Succeed")
 
         await driver.quit()
       }
