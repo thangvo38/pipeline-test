@@ -36,8 +36,8 @@ var desiredCaps = {
   captureScreenshots: true, 
   app:                'kobiton-store:10449', 
   deviceGroup:        'KOBITON', 
-  deviceName:         'Galaxy A7',
-  platformVersion:    '5.0.2',
+  deviceName:         'Galaxy J3',
+  platformVersion:    '5.1.1',
   platformName:       'Android' 
 }
 
@@ -83,48 +83,48 @@ describe('Android App sample', () => {
     .elementById("com.alaskaairlines.android:id/empty_deck_booktrip")
     .click()
     .sleep(10000)
-//     .elementByXPath("//android.view.View[@text='One-way']")
-//     .click()
-//     .sleep(1000)
-//     .elementById("geo-from")
-//     .click().sendKeys("Atlanta")
-//     .sleep(3000)
-//     .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ViewSwitcher/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[2]/android.widget.ListView/android.view.View")
-//     .click()
-//     .sleep(2000)
-//     .elementById("geo-to")
-//     .click().sendKeys("Dallas")
-//     .sleep(2000)
-//     .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ViewSwitcher/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.widget.ListView/android.view.View[1]")
-//     .click()
-//     .elementById("departure-date")
-//     .click()
-//     .elementByXPath("//android.view.View[@text='25']")
-//     .click()
-//     .elementById("btnDone")
-//     .click()
+    // .elementByXPath("//android.view.View[@text='One-way']")
+    // .click()
+    // .sleep(1000)
+    // .elementById("geo-from")
+    // .click().sendKeys("Atlanta")
+    // .sleep(3000)
+    // .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ViewSwitcher/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[2]/android.widget.ListView/android.view.View")
+    // .click()
+    // .sleep(2000)
+    // .elementById("geo-to")
+    // .click().sendKeys("Dallas")
+    // .sleep(2000)
+    // .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ViewSwitcher/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.widget.ListView/android.view.View[1]")
+    // .click()
+    // .elementById("departure-date")
+    // .click()
+    // .elementByXPath("//android.view.View[@text='25']")
+    // .click()
+    // .elementById("btnDone")
+    // .click()
     
-//     .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ViewSwitcher/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[8]/android.widget.Button")
-//     .click()
-//     .sleep(6000)
+    // .elementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ViewSwitcher/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[8]/android.widget.Button")
+    // .click()
+    // .sleep(6000)
     })
 
-    after(async () => {
+  after(async () => {
     if (driver != null) {
       try {
         const sessionCapabilities = await driver.sessionCapabilities()
         var sessionId = sessionCapabilities.kobitonSessionId
-        // console.log(" ")
-        // console.log(" ")
-        // console.log("SESSION INFORMATION")
-        // console.log("sessionName: " + sessionCapabilities.sessionName)
-        // console.log("sessionDescription: " + sessionCapabilities.sessionDescription)
-        // console.log("deviceOrientation: " + sessionCapabilities.deviceOrientation)
-        // console.log("deviceName: " + sessionCapabilities.desired.deviceName)
-        // console.log("platformName: " + sessionCapabilities.platformName)
-        // console.log("app: " + sessionCapabilities.app)
-        // console.log("kobitonSessionId: " + sessionId)
-        // console.log(" ")
+        console.log(" ")
+        console.log(" ")
+        console.log("SESSION INFORMATION")
+        console.log("sessionName: " + sessionCapabilities.sessionName)
+        console.log("sessionDescription: " + sessionCapabilities.sessionDescription)
+        console.log("deviceOrientation: " + sessionCapabilities.deviceOrientation)
+        console.log("deviceName: " + sessionCapabilities.desired.deviceName)
+        console.log("platformName: " + sessionCapabilities.platformName)
+        console.log("app: " + sessionCapabilities.app)
+        console.log("kobitonSessionId: " + sessionId)
+        console.log(" ")
 
         console.log("TEST OUTPUT")
         var basicAuth = "Basic " + new Buffer(username + ":" + apiKey).toString("base64");
