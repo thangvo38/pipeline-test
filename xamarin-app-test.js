@@ -128,7 +128,7 @@ describe('Android App sample', () => {
 
         console.log("TEST OUTPUT")
         var basicAuth = "Basic " + new Buffer(username + ":" + apiKey).toString("base64");
-        var response = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}`, {
+        var response = await fetch(`https://api.kobiton.com/v1/sessions/${sessionId}`, {
           headers: { 'Authorization': basicAuth }
         })
         const body = await response.json()
@@ -136,7 +136,7 @@ describe('Android App sample', () => {
 
         console.log("App Version:")
         var appVersionId = body.executionData.desired.appVersionId
-        var appVersionResponse = await fetch(`https://api-test.kobiton.com/v1/app/versions/${appVersionId}`, {
+        var appVersionResponse = await fetch(`https://api.kobiton.com/v1/app/versions/${appVersionId}`, {
           headers: { 'Authorization': basicAuth }
         })
         var appVersionBody = await appVersionResponse.json()
@@ -144,7 +144,7 @@ describe('Android App sample', () => {
 
         console.log(" ")
         console.log("Commands:")
-        var commandsResponse = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}/commands?page=2`, {
+        var commandsResponse = await fetch(`https://api.kobiton.com/v1/sessions/${sessionId}/commands?page=2`, {
           headers: { 'Authorization': basicAuth }
         })
         console.log(commandsResponse)
